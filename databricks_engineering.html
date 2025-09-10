@@ -9,6 +9,19 @@
       width: 100%;
       height: auto;
       display: block;
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;   /* images go to next line if screen is small */
+    gap: 10px;         /* space between images */
+  }
+
+  .gallery img {
+    width: 200px;      /* control image size */
+    height: auto;      /* keep aspect ratio */
+    border-radius: 8px; /* optional: rounded corners */
+  }
+
     }
   </style>
 </head>
@@ -19,17 +32,30 @@
 	<h1>DATABRICKS ENGINEER</h1>
 
 	<p>Spanish</p>
-<video width="640" height="360" controls>
-  <source src="1_espanol_databricks_engineering.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
+  <iframe 
+    src="https://www.youtube.com/shorts/ai6h0FAqW84" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen
+    style="position:absolute; top:0; left:0; width:100%; height:100%;">
+  </iframe>
+</div>
 
 <p>English</p>
 
-<video width="640" height="360" controls>
-  <source src="2_english_databricks_engineering.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+
+<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
+  <iframe 
+    src="https://www.youtube.com/shorts/W2vYFWfvomY"
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen
+    style="position:absolute; top:0; left:0; width:100%; height:100%;">
+  </iframe>
+</div>
+
 
 
 
@@ -37,6 +63,29 @@
 	</p>
 
 	<p>The images got really distored, I'll work on fixing everything and making it look more smooth, these are a few of the books I've been sampling to learn more.</p>
+	
+	<div class="gallery">
+  <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="">
+  <img src="databricks_engineering_pictures/1_databricks_certified_data_engineer_associate_study_guide_managing_git_branches.jpeg.jpeg" alt="">
+  <img src="databricks_engineering_pictures/2_databricks_certified_data_engineer_associate_study_guide_databricks_utilities.jpeg.jpeg" alt="">
+  <img src="databricks_engineering_pictures/3.jpeg" alt="">
+  <img src="databricks_engineering_pictures/4.jpeg" alt="">
+  <img src="databricks_engineering_pictures/5.jpeg" alt="">
+  <img src="databricks_engineering_pictures/6.jpeg" alt="">
+  <img src="databricks_engineering_pictures/7.jpeg" alt="">
+  <img src="databricks_engineering_pictures/8.jpeg" alt="">
+  <img src="databricks_engineering_pictures/9.jpeg" alt="">
+  <img src="databricks_engineering_pictures/10.jpeg" alt="">
+  <img src="databricks_engineering_pictures/11.jpeg" alt="">
+  <img src="databricks_engineering_pictures/12.jpeg" alt="">
+  <img src="databricks_engineering_pictures/13.jpeg" alt="">
+  <img src="databricks_engineering_pictures/14.jpeg" alt="">
+  <img src="databricks_engineering_pictures/15.jpeg" alt="">
+
+
+</div>
+
+<!--
 <img src="data" alt="Data Engineering Books Kindle Samples">
   <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="">
   <img src="databricks_engineering_pictures/1_databricks_ certified_data_engineer_associate_ study_guide_managing_git_branches.jpeg.jpeg" alt="">
@@ -54,7 +103,7 @@
   <img src="databricks_engineering_pictures/13.jpeg" alt="">
   <img src="databricks_engineering_pictures/14.jpeg" alt="">
   <img src="databricks_engineering_pictures/15.jpeg" alt="">
-
+  --!>
 </body>
 </html>
 
