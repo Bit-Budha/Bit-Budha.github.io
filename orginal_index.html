@@ -3,56 +3,10 @@
 	<center>
 <head>
   <title>Ayibobo mi gente!</title>
-  <style>
-    .main-video {
-      width: 100%;
-      max-width: 800px;
-      margin: 20px auto 30px auto;
-    }
-    
-    .main-video iframe {
-      width: 100%;
-      height: 450px;
-      border: 0;
-      border-radius: 8px;
-    }
-    
-    .video-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 20px;
-      max-width: 800px;
-      margin: 0 auto 30px auto;
-    }
-    
-    .video-grid iframe {
-      width: 100%;
-      height: 225px;
-      border: 0;
-      border-radius: 8px;
-    }
-    
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .video-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-      }
-      
-      .main-video iframe {
-        height: 250px;
-      }
-      
-      .video-grid iframe {
-        height: 200px;
-      }
-    }
-  </style>
 </head>
-<body bgcolor="tan">
+<body  bgcolor="tan">
 
-<!--<audio src="Customize.mp3" autoplay loop controls></audio>-->
+<!--<audio src="Customize.mp3" autoplay loop controls></audio>--!>
 
 <!-- Button to toggle video -->
 <button id="toggleBtn">Play / Pause</button>
@@ -96,57 +50,61 @@
     });
   }
 </script>
+<p>VV English starts at 1:41 VV</p>
 
-<!-- Main video at the top -->
-<div class="main-video">
-  <iframe src="https://www.youtube.com/embed/u3KjCIagJm0"
-          title="Main YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-  <p><strong>VV English starts at 1:41 VV</strong></p>
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="https://www.youtube.com/embed/u3KjCIagJm0"
+            style="width: 100%; height: 56.25vw; max-height: 560px; border:0;"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+      </div>
+
+  <div style="flex: 1; min-width: 300px;">
+    <iframe src="https://www.youtube.com/embed/D2r6WYDt9Ig"
+            style="width: 100%; height: 56.25vw; max-height: 560px; border:0;"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+  </div>
 </div>
 
-<!-- 2x2 grid of videos below -->
-<div class="video-grid">
-  <!-- Top left -->
-  <iframe src="https://www.youtube.com/embed/u3KjCIagJm0"
-          title="Top left video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-  
-  <!-- Top right -->
-  <iframe src="https://www.youtube.com/embed/34UJu0YqfcE"
-          title="Top right video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-  
-  <!-- Bottom left -->
-  <iframe src="https://www.youtube.com/embed/GGtdQ5nXC-k"
-          title="Bottom left video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-  
-  <!-- Bottom right -->
-  <iframe src="https://www.youtube.com/embed/y4JGkEVvx5s"
-          title="Bottom right video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-  </iframe>
-</div>
+<!--
+	<iframe src="https://www.youtube.com/embed/u3KjCIagJm0"
+        style="width:100%; height:56.25vw; max-height:560px; border:0;"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+</iframe>
 
+<p>VV English starts at 1:41 VV</p>
+<iframe src="https://www.youtube.com/embed/D2r6WYDt9Ig"
+        style="width:100%; height:56.25vw; max-height:560px; border:0;"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+</iframe>
+--!>
+
+
+<h1>
 <strong>
 <nav>
+
   <ul>
-    <li><a href="linux.html" target="_blank">Enlace a mi página web centrada en Linux/Link to my webpage focused on Linux</a></li>
+    <li><a href="linux.html" target="_blank">Enlace a mi página web centrada en Linux/
+    <br>Link to my webpage focused on Linux</a></li>
     <br>
-    <li><a href="databricks_engineering.html" target="_blank"> Enlace a mi página web centrada en Databricks Engineering/ Link to my webpage focused on Databricks Engineering </a></li>
+    <li><a href="databricks_engineering.html" target="_blank"> Enlace a mi página web centrada en Databricks Engineering/<br> Link to my webpage focused on Databricks Engineering </a></li>
   </ul>
 </nav>
 </strong>	
+</h1>
+
 
   <h1>¡Hola Mundo!/Hello, world!</h1>
 
@@ -180,6 +138,8 @@
 </ol>
  <h1>I FINALLY PASSED MY COMPTIA SECURITY+!</h1>
 
+
+
 <img src="safe_comptia.jpg"  style="max-width: 100%; height: auto;" alt="Me holding my CompTIA Security+ passing score right after I got it">
  <p>It has been a long journey coming!
  I spoke more about it in my <a href="https://www.linkedin.com/posts/bitbudha_comptia-securityplus701-secplus-activity-7368726075000004608-BqyB?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLNbesB-2tHSCWa4WHmf__UhVbGYmEjOIs" target="_blank">Linkedin post here</a>
@@ -187,6 +147,15 @@
  right afterwrds talking about my experience. I was going to go for my <a href="https://www.redhat.com/en/services/certification/rhcsa?pfe-8a9wkjsoi=exams" target="_blank">RHCSA</a>
  to more into <a href="https://www.linkedin.com/posts/bitbudha_a-beginners-guide-to-linux-kernel-development-activity-7363390688975077376-jflD?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLNbesB-2tHSCWa4WHmf__UhVbGYmEjOIs"  target="_blank">Linux System Admintration</a> 
 but I'm going to pivot a bit nad help my company by scaling up into a <a href="https://www.databricks.com/learn/certification/data-engineer-associate" target="_blank">Databricks Engineering</a> so I've been studying a lot of that recently</p>
+ 
+
+<!--
+<img src="gif.dir/0_wip.gif"  style="max-width: 100%; height: auto;" alt="This website will always be under contruction, enjoy the process of seeing it grow and evolve">
+
+<img src="gif.dir/1_linux_power.gif"  style="max-width: 100%; height: auto;" alt="Linux is love, linux is life!">
+
+<img src="gif.dir/fruit.gif"  style="max-width: 100%; height: auto;" alt="Linux is love, linux is life!">
+--!>
 
 </body>
 	</center>
