@@ -340,22 +340,6 @@
             border-color: var(--accent-color);
         }
 
-        .book-cover-container {
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .book-cover-container iframe {
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        .book-card:hover .book-cover-container iframe {
-            transform: scale(1.02);
-        }
-
         .book-card a {
             color: var(--primary-color);
             text-decoration: none;
@@ -392,7 +376,6 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             group: gallery-item;
-            cursor: pointer;
         }
 
         .gallery-item:hover {
@@ -431,199 +414,6 @@
             opacity: 1;
         }
 
-        .databricks-badge {
-            display: inline-block;
-            background: var(--databricks-orange);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .databricks-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1) 0%, rgba(72, 202, 228, 0.1) 100%);
-            border-left: 5px solid var(--accent-color);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .highlight-box::before {
-            content: '💡';
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            opacity: 0.3;
-        }
-
-        /* Fullscreen Image Modal */
-        .image-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .image-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 95%;
-            max-height: 95%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .image-modal.show .modal-image {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-close:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-nav:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .modal-prev {
-            left: -80px;
-        }
-
-        .modal-next {
-            right: -80px;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tech-card-animation {
-            animation: slideInFromBottom 0.6s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        @keyframes slideInFromBottom {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .loaded .hero-content h1 {
-            animation: heroTextSlide 1.2s ease-out;
-        }
-        
-        @keyframes heroTextSlide {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .video-card.loaded::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s ease-in-out;
-        }
-        
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
@@ -659,28 +449,53 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 15px;
             }
+        }
 
-            .modal-close {
-                top: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
 
-            .modal-nav {
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-            .modal-prev {
-                left: 20px;
-            }
+        .databricks-badge {
+            display: inline-block;
+            background: var(--databricks-orange);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
 
-            .modal-next {
-                right: 20px;
-            }
+        .databricks-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1) 0%, rgba(72, 202, 228, 0.1) 100%);
+            border-left: 5px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
         }
     </style>
 </head>
@@ -731,12 +546,12 @@
         <!-- Introduction Section -->
         <div class="section fade-in">
             <div class="intro-text">
-                <p><strong>Peace, I hope you are well</strong> – thanks for coming to my page! I created this dedicated space to showcase all the concepts, ideas, definitions, acronyms, visuals, technologies, and programs I'm mastering as I dive deeper into Databricks Engineering.</p>
+                <p><strong>Peace, I hope you are well</strong> — thanks for coming to my page! I created this dedicated space to showcase all the concepts, ideas, definitions, acronyms, visuals, technologies, and programs I'm mastering as I dive deeper into Databricks Engineering.</p>
                 
-                <p>This journey isn't just personal growth – it's strategic. My company needs significant help in this area, so I'm committed to learning as much as possible to support both their success and my career development as a Databricks Engineer.</p>
+                <p>This journey isn't just personal growth — it's strategic. My company needs significant help in this area, so I'm committed to learning as much as possible to support both their success and my career development as a Databricks Engineer.</p>
 
                 <div class="highlight-box">
-                    <p><strong>Here's comprehensive documentation and definitions to accelerate your Databricks Engineer journey</strong> – with enough repetition to ensure these crucial concepts stick in your mind for the long haul.</p>
+                    <p><strong>Here's comprehensive documentation and definitions to accelerate your Databricks Engineer journey</strong> — with enough repetition to ensure these crucial concepts stick in your mind for the long haul.</p>
                 </div>
             </div>
         </div>
@@ -839,15 +654,407 @@
 
                 <div class="books-grid">
                     <div class="book-card">
-                        <div class="book-cover-container">
-                            <iframe src="https://read.amazon.com/kp/card?asin=1098166833&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_8XQYRX34WRZ6GZMC8YSK" width="100%" height="200" frameborder="0"></iframe>
-                        </div>
                         <a href="https://www.amazon.com/Databricks-Certified-Engineer-Associate-Depth/dp/1098166833" target="_blank">Databricks Certified Engineer Associate In-Depth</a>
                         <div class="book-description">Comprehensive guide for preparing the Databricks Certified Associate exam.</div>
                     </div>
 
                     <div class="book-card">
-                        <div class="book-cover-container">
-                            <iframe src="https://read.amazon.com/kp/card?asin=9355519567&preview=inline&linkCode=kpe&ref_=cm_sw_r_kb_dp_8XQYRX34WRZ6GZMC8YSK" width="100%" height="200" frameborder="0"></iframe>
-                        </div>
-                        <a href="https://www.amazon.
+                        <a href="https://www.amazon.com/Databricks-Lakehouse-Platform-Cookbook-building/dp/9355519567" target="_blank">Databricks Lakehouse Platform Cookbook</a>
+                        <div class="book-description">Practical recipes for building data pipelines and analytics on Databricks Lakehouse.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Not-Dummies-Analytics-Knowledge/dp/B0DZD41XCP/" target="_blank">Databricks for Not Dummies</a>
+                        <div class="book-description">Beginner-friendly introduction to Databricks analytics and platform knowledge.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Engineering-Apache-Spark-Delta-Cookbook/dp/1837633355/" target="_blank">Engineering with Apache Spark & Delta Cookbook</a>
+                        <div class="book-description">Hands-on guide to engineering pipelines using Apache Spark and Delta Lake.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Certified-Associate-Developer-Apache-ebook/dp/B0C5MR5ZMV/" target="_blank">Databricks Certified Associate Developer</a>
+                        <div class="book-description">Study guide and practice for the Databricks developer certification exam.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Data-Intelligence-Platform-Revolution/dp/B0D3KS8P2C/" target="_blank">Databricks Data Intelligence Platform Revolution</a>
+                        <div class="book-description">Overview of Databricks platform capabilities and data intelligence strategies.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/DataBricks-Unofficial-Beginners-Databricks-hands-ebook/dp/B0FBHHV8VW/" target="_blank">DataBricks Unofficial Beginners Guide</a>
+                        <div class="book-description">Practical, hands-on guide for beginners learning Databricks.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Runbook-passing-Databricks-Certified-Associate-ebook/dp/B0DZHTC2D7" target="_blank">Runbook for Passing Databricks Certified Associate</a>
+                        <div class="book-description">Step-by-step tips and strategies for passing the certification exam.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Visual Learning Resources</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem; color: var(--text-light);">
+                I've captured the most impactful sections from my Kindle reading sessions. While GitHub compression affects image quality, 
+                I'm continuously improving the presentation. Meanwhile, explore these visual insights to enhance your learning journey.
+            </p>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="Databricks Kindle Books Collection">
+                    <div class="gallery-overlay">Book Collection</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/1.jpeg" alt="Databricks Concept 1">
+                    <div class="gallery-overlay">Core Concepts</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/2.jpeg" alt="Databricks Concept 2">
+                    <div class="gallery-overlay">Architecture Patterns</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/3.jpeg" alt="Databricks Concept 3">
+                    <div class="gallery-overlay">Data Engineering</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/4.jpeg" alt="Databricks Concept 4">
+                    <div class="gallery-overlay">Best Practices</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/5.jpeg" alt="Databricks Concept 5">
+                    <div class="gallery-overlay">Implementation</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/6.jpeg" alt="Databricks Concept 6">
+                    <div class="gallery-overlay">Advanced Topics</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/7.jpeg" alt="Databricks Concept 7">
+                    <div class="gallery-overlay">Performance Tuning</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/8.jpeg" alt="Databricks Concept 8">
+                    <div class="gallery-overlay">Data Governance</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/9.jpeg" alt="Databricks Concept 9">
+                    <div class="gallery-overlay">ML Integration</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/10.jpeg" alt="Databricks Concept 10">
+                    <div class="gallery-overlay">Scaling Strategies</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/11.jpeg" alt="Databricks Concept 11">
+                    <div class="gallery-overlay">Security Features</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/12.jpeg" alt="Databricks Concept 12">
+                    <div class="gallery-overlay">Analytics Workflows</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/13.jpeg" alt="Databricks Concept 13">
+                    <div class="gallery-overlay">Data Pipelines</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/14.jpeg" alt="Databricks Concept 14">
+                    <div class="gallery-overlay">Optimization Tips</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/15.jpeg" alt="Databricks Concept 15">
+                    <div class="gallery-overlay">Advanced Features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Scroll Progress Indicator
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        }
+
+        // Intersection Observer for fade-in animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-in, .section').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Enhanced hover effects for gallery items
+        function setupGalleryEffects() {
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.08) translateY(-10px)';
+                    this.style.zIndex = '10';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                    this.style.zIndex = '1';
+                });
+            });
+        }
+
+        // Tech card staggered animations
+        function setupTechCardAnimations() {
+            const techCards = document.querySelectorAll('.tech-card');
+            techCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('tech-card-animation');
+            });
+        }
+
+        // Book card hover effects
+        function setupBookCardEffects() {
+            document.querySelectorAll('.book-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Parallax effect for hero section
+        function setupParallax() {
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
+
+        // Video card loading effects
+        function setupVideoEffects() {
+            document.querySelectorAll('.video-card').forEach(card => {
+                const iframe = card.querySelector('iframe');
+                if (iframe) {
+                    iframe.addEventListener('load', function() {
+                        card.classList.add('loaded');
+                    });
+                }
+            });
+        }
+
+        // Dynamic badge animations
+        function setupBadgeAnimations() {
+            document.querySelectorAll('.databricks-badge').forEach((badge, index) => {
+                badge.style.animationDelay = `${index * 0.05}s`;
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(2deg)';
+                });
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        }
+
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupScrollAnimations();
+            setupGalleryEffects();
+            setupTechCardAnimations();
+            setupBookCardEffects();
+            setupSmoothScrolling();
+            setupParallax();
+            setupVideoEffects();
+            setupBadgeAnimations();
+            setupImageModal();
+            
+            // Add scroll event listener for progress bar
+            window.addEventListener('scroll', updateScrollProgress);
+            
+            // Add loading class to body for initial animations
+            document.body.classList.add('loaded');
+        });
+
+        // Fullscreen Image Modal Functionality
+        function setupImageModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
+            const modalPrev = document.getElementById('modalPrev');
+            const modalNext = document.getElementById('modalNext');
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            
+            let currentImageIndex = 0;
+            let imageArray = Array.from(galleryImages);
+            
+            // Open modal when gallery image is clicked
+            galleryImages.forEach((img, index) => {
+                img.parentElement.addEventListener('click', function() {
+                    currentImageIndex = index;
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt;
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+            });
+            
+            // Close modal functionality
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+            
+            modalClose.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Navigation functionality
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + imageArray.length) % imageArray.length;
+                modalImage.src = imageArray[currentImageIndex].src;
+                modalImage.alt = imageArray[currentImageIndex].alt;
+            }
+            
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % imageArray.length;
+                modalImage.src = imageArray[currentImageIndex].src;
+                modalImage.alt = imageArray[currentImageIndex].alt;
+            }
+            
+            modalPrev.addEventListener('click', showPrevImage);
+            modalNext.addEventListener('click', showNextImage);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (modal.classList.contains('show')) {
+                    switch(e.key) {
+                        case 'Escape':
+                            closeModal();
+                            break;
+                        case 'ArrowLeft':
+                            showPrevImage();
+                            break;
+                        case 'ArrowRight':
+                            showNextImage();
+                            break;
+                    }
+                }
+            });
+            
+            // Touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            modal.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            modal.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        showNextImage(); // Swipe left, show next
+                    } else {
+                        showPrevImage(); // Swipe right, show prev
+                    }
+                }
+            }
+        }
+
+        // Add CSS for tech card animations
+        const style = document.createElement('style');
+        style.textContent = `
+            .tech-card-animation {
+                animation: slideInFromBottom 0.6s ease-out forwards;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            
+            @keyframes slideInFromBottom {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .loaded .hero-content h1 {
+                animation: heroTextSlide 1.2s ease-out;
+            }
+            
+            @keyframes heroTextSlide {
+                0% {
+                    opacity: 0;
+                    transform: translateY(50px) scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+            
+            .video-card.loaded::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                animation: shimmer 2s ease-in-out;
+            }
+            
+            @keyframes shimmer {
+                0% { left: -100%; }
+                100% { left: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
