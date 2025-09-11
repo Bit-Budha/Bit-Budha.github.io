@@ -1,193 +1,1060 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Databricks Engineer Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <title>DATABRICKS ENGINEER</title>
-<!--
-<style>
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;   /* images go to next line if screen is small */
-    gap: 10px;         /* space between images */
-  }
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2d3748;
+            --accent-color: #00b4d8;
+            --accent-secondary: #0077b6;
+            --text-color: #2d3748;
+            --text-light: #718096;
+            --bg-color: #f0f9ff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 25px rgba(0, 180, 216, 0.1);
+            --shadow-hover: 0 20px 40px rgba(0, 180, 216, 0.2);
+            --gradient: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+            --gradient-accent: linear-gradient(135deg, #48cae4 0%, #00b4d8 100%);
+            --databricks-orange: #ff6b35;
+            --databricks-red: #ff3333;
+        }
 
-  .gallery img {
-    width: 200px;      /* control image size */
-    height: auto;      /* keep aspect ratio */
-    border-radius: 8px; /* optional: rounded corners */
-  }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow-x: hidden;
+        }
 
-    }
-  </style>
-  --!>
-<style>
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;   /* images go to next line if screen is small */
-    gap: 10px;         /* space between images */
-  }
-  .gallery img {
-    width: 200px;      /* control image size */
-    height: auto;      /* keep aspect ratio */
-    border-radius: 8px; /* optional: rounded corners */
-  }
-</style>
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
 
+        .scroll-progress {
+            height: 100%;
+            background: var(--gradient);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .hero {
+            background: var(--gradient);
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="databricks-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23databricks-grid)"/></svg>');
+            animation: float 25s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease-out;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            animation: slideInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--primary-color);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .video-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-label {
+            padding: 20px;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .intro-text {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 80px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 180, 216, 0.05), transparent);
+            transition: left 1s ease;
+        }
+
+        .intro-text:hover::before {
+            left: 100%;
+        }
+
+        .intro-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .tech-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .tech-card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .tech-card a:hover {
+            color: var(--accent-secondary);
+        }
+
+        .books-section {
+            background: var(--card-bg);
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 80px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .book-card {
+            background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 180, 216, 0.1);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .book-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .book-card a:hover {
+            color: var(--accent-color);
+        }
+
+        .book-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            group: gallery-item;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 180, 216, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .video-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .intro-text,
+            .books-section {
+                padding: 30px;
+            }
+
+            .tech-card {
+                padding: 20px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .databricks-badge {
+            display: inline-block;
+            background: var(--databricks-orange);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .databricks-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.1) 0%, rgba(72, 202, 228, 0.1) 100%);
+            border-left: 5px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+    </style>
 </head>
-<body  bgcolor="skyblue">
+<body>
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
 
-	<h1>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>DATABRICKS ENGINEER</h1>
+            <p class="hero-subtitle">Mastering the Art of Data Engineering & Analytics</p>
+            <a href="index.html" class="back-link">
+                ← Volver a la página principal / Back to Main Page
+            </a>
+        </div>
+    </div>
 
-<a href="index.html" target="_blank"> Enlace para volver a la página web principal/link to go back to the main webpage </a>
-	</h1>
-	<h1>DATABRICKS ENGINEER</h1>
+    <div class="container">
+        <!-- Video Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Learning Journey Videos</h2>
+            <div class="video-container">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/ai6h0FAqW84"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-label">English Content</div>
+                </div>
 
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/W2vYFWfvomY"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-label">Advanced Concepts</div>
+                </div>
+            </div>
+        </div>
 
-<!--
-<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
-  <iframe 
-    src="https://www.youtube.com/embed/ai6h0FAqW84"
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen
-    style="position:absolute; top:0; left:0; width:100%; height:100%;">
-  </iframe>
-</div>
+        <!-- Introduction Section -->
+        <div class="section fade-in">
+            <div class="intro-text">
+                <p><strong>Peace, I hope you are well</strong> — thanks for coming to my page! I created this dedicated space to showcase all the concepts, ideas, definitions, acronyms, visuals, technologies, and programs I'm mastering as I dive deeper into Databricks Engineering.</p>
+                
+                <p>This journey isn't just personal growth — it's strategic. My company needs significant help in this area, so I'm committed to learning as much as possible to support both their success and my career development as a Databricks Engineer.</p>
 
+                <div class="highlight-box">
+                    <p><strong>Here's comprehensive documentation and definitions to accelerate your Databricks Engineer journey</strong> — with enough repetition to ensure these crucial concepts stick in your mind for the long haul.</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- Technologies Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Core Technologies & Concepts</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <a href="https://docs.python.org/3/" target="_blank">Python</a>
+                    <span class="databricks-badge">Core Language</span>
+                    <p>Created by Guido van Rossum in 1991; widely used in Databricks for data analysis, ML, and scripting.</p>
+                </div>
 
-<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; max-width:100%;">
-  <iframe 
-    src="https://www.youtube.com/embed/W2vYFWfvomY"
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen
-    style="position:absolute; top:0; left:0; width:100%; height:100%;">
-  </iframe>
-</div>
---!>
+                <div class="tech-card">
+                    <a href="https://learn.microsoft.com/en-us/sql/?view=sql-server-ver17" target="_blank">SQL</a>
+                    <span class="databricks-badge">Database</span>
+                    <p>Developed in the 1970s at IBM for relational databases; core for querying structured data in Databricks.</p>
+                </div>
 
+                <div class="tech-card">
+                    <a href="https://www.r-project.org/other-docs.html" target="_blank">R</a>
+                    <span class="databricks-badge">Analytics</span>
+                    <p>Developed by Ross Ihaka and Robert Gentleman in the early 1990s for statistical computing; used in Databricks for analytics.</p>
+                </div>
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
-  
-  <div style="flex: 1; min-width: 300px; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-    <iframe 
-      src="https://www.youtube.com/embed/ai6h0FAqW84"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen
-      style="position:absolute; top:0; left:0; width:100%; height:100%;">
-    </iframe>
-    <p>English</p>
-  </div>
+                <div class="tech-card">
+                    <a href="https://docs.scala-lang.org/" target="_blank">Scala</a>
+                    <span class="databricks-badge">JVM Language</span>
+                    <p>Created by Martin Odersky in 2003; JVM language, used in Databricks for Spark jobs.</p>
+                </div>
 
-  <div style="flex: 1; min-width: 300px; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-    <iframe 
-      src="https://www.youtube.com/embed/W2vYFWfvomY"
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen
-      style="position:absolute; top:0; left:0; width:100%; height:100%;">
-    </iframe>
-  </div>
+                <div class="tech-card">
+                    <a href="https://spark.apache.org/docs/latest/" target="_blank">Apache Spark</a>
+                    <span class="databricks-badge">Big Data Engine</span>
+                    <p>Developed at UC Berkeley in 2009; distributed computing engine for big data processing, core of Databricks.</p>
+                </div>
 
-</div>
+                <div class="tech-card">
+                    <a href="https://www.databricks.com/discover/data-lakes" target="_blank">Data Lakes</a>
+                    <span class="databricks-badge">Storage</span>
+                    <p>Concept emerged in 2010s; centralized storage for raw structured/unstructured data, foundational for Databricks.</p>
+                </div>
 
-	<p>Peace, I hope you are well, thanks for coming to my page, I made this page to showcase all of the concepts, ideas, definitions, acronyms, visuals, technologies and programs that I'm learning as I get deeper into learning Databricks Engineering to help my company and work towards becoming a Databricks Engineer with them. It's something that they need a lot of help with currently so I'm going to learn as much as I can go help them and help myself.
-	</p>
+                <div class="tech-card">
+                    <a href="https://delta.io/" target="_blank">Delta Lake</a>
+                    <span class="databricks-badge">ACID Transactions</span>
+                    <p>Open-source storage layer from Databricks (2019) adding ACID transactions to data lakes.</p>
+                </div>
 
-	<p>Here are is some documentation and definitions to get you started on your Databricks Engineer journey, with enough repition that ideas stay in your head longer</p>
+                <div class="tech-card">
+                    <a href="https://www.databricks.com/glossary/acid-transactions" target="_blank">ACID</a>
+                    <span class="databricks-badge">Data Integrity</span>
+                    <p>Atomicity, Consistency, Isolation, Durability; ensures reliable transactions in databases/Delta Lake.</p>
+                </div>
 
+                <div class="tech-card">
+                    <a href="https://www.databricks.com/discover/etl" target="_blank">ETL (Extract, Transform, Load)</a>
+                    <span class="databricks-badge">Traditional Pipeline</span>
+                    <p>Traditional data pipeline: transform data before loading it into the warehouse.</p>
+                </div>
 
-<ul>
-  <li><a href="https://docs.python.org/3/">Python</a> – Created by Guido van Rossum in 1991; widely used in Databricks for data analysis, ML, and scripting.</li>
-  <li><a href="https://learn.microsoft.com/en-us/sql/?view=sql-server-ver17">SQL</a> – Developed in the 1970s at IBM for relational databases; core for querying structured data in Databricks.</li>
-  <li><a href="https://www.r-project.org/other-docs.html">R</a> – Developed by Ross Ihaka and Robert Gentleman in the early 1990s for statistical computing; used in Databricks for analytics.</li>
-  <li><a href="https://docs.scala-lang.org/">Scala</a> – Created by Martin Odersky in 2003; JVM language, used in Databricks for Spark jobs.</li>
-  <li><a href="https://spark.apache.org/docs/latest/">Apache Spark</a> – Developed at UC Berkeley in 2009; distributed computing engine for big data processing, core of Databricks.</li>
-  <li><a href="https://www.databricks.com/discover/data-lakes">Data Lakes</a> – Concept emerged in 2010s; centralized storage for raw structured/unstructured data, foundational for Databricks.</li>
-  <li><a href="https://delta.io/">Delta Lake</a> – Open-source storage layer from Databricks (2019) adding ACID transactions to data lakes.</li>
-  <li><a href="https://www.databricks.com/glossary/acid-transactions">ACID</a> – Atomicity, Consistency, Isolation, Durability; ensures reliable transactions in databases/Delta Lake.</li>
-  <li><a href="https://www.databricks.com/discover/etl">ETL (Extract, Transform, Load)</a> – Traditional data pipeline: transform data before loading it into the warehouse.</li>
-  <li><a href="https://www.databricks.com/discover/etl/vs-elt">ELT (Extract, Load, Transform)</a> – Modern pipeline (common in Databricks): load raw data first, transform in-place (often using Delta Lake).</li>
-  <li><a href="https://www.databricks.com/glossary/medallion-architecture">Medallion Architecture</a> – Databricks ETL/ELT pattern: Bronze (raw), Silver (cleaned), Gold (aggregated insights).</li>
-  <li><a href="https://docs.databricks.com/data-governance/unity-catalog/index.html">Unity Catalog</a> – Databricks 2021+ unified governance layer for data and AI assets (tables, files, ML models).</li>
-  <li><a href="https://docs.databricks.com/notebooks/index.html">Notebooks</a> – Interactive coding environment (like Jupyter) integrated in Databricks for multi-language workflows.</li>
-  <li><a href="https://docs.databricks.com/aws/en/dev-tools/cli/reference/fs-commands">Linux “magic commands”</a> – Shorthand in notebooks (e.g., %fs, %sh) to interact with files and shell.</li>
-</ul>
+                <div class="tech-card">
+                    <a href="https://www.databricks.com/discover/etl/vs-elt" target="_blank">ELT (Extract, Load, Transform)</a>
+                    <span class="databricks-badge">Modern Pipeline</span>
+                    <p>Modern pipeline (common in Databricks): load raw data first, transform in-place (often using Delta Lake).</p>
+                </div>
 
-<p>Out of all the Databricks books I've sampled on my kindle so far the Databricks Certified Engineer Associate with the bird on the cover and the Databricks Lakehouse Platform with the Beaver on the cover have been the most in depth, hencewise I took photos of the parts that stood out to me the most and shared them below. The photos get really distorted when I pushed them to GitHub. I'm figuring out the issue and will gradually make things look better. In the meantime feel free to look at all these links I'm sharing you you can further your learning as well. </p>
+                <div class="tech-card">
+                    <a href="https://www.databricks.com/glossary/medallion-architecture" target="_blank">Medallion Architecture</a>
+                    <span class="databricks-badge">Data Architecture</span>
+                    <p>Databricks ETL/ELT pattern: Bronze (raw), Silver (cleaned), Gold (aggregated insights).</p>
+                </div>
 
+                <div class="tech-card">
+                    <a href="https://docs.databricks.com/data-governance/unity-catalog/index.html" target="_blank">Unity Catalog</a>
+                    <span class="databricks-badge">Data Governance</span>
+                    <p>Databricks 2021+ unified governance layer for data and AI assets (tables, files, ML models).</p>
+                </div>
 
+                <div class="tech-card">
+                    <a href="https://docs.databricks.com/notebooks/index.html" target="_blank">Notebooks</a>
+                    <span class="databricks-badge">Interactive Environment</span>
+                    <p>Interactive coding environment (like Jupyter) integrated in Databricks for multi-language workflows.</p>
+                </div>
 
-<ul>
-  <li><a href="https://www.amazon.com/Databricks-Certified-Engineer-Associate-Depth/dp/1098166833" target="_blank">Databricks Certified Engineer Associate In-Depth</a> – Comprehensive guide for preparing the Databricks Certified Associate exam.</li>
-  
-  <li><a href="https://www.amazon.com/Databricks-Lakehouse-Platform-Cookbook-building/dp/9355519567" target="_blank">Databricks Lakehouse Platform Cookbook</a> – Practical recipes for building data pipelines and analytics on Databricks Lakehouse.</li>
-  
-  <li><a href="https://www.amazon.com/Databricks-Not-Dummies-Analytics-Knowledge/dp/B0DZD41XCP/" target="_blank">Databricks for Not Dummies</a> – Beginner-friendly introduction to Databricks analytics and platform knowledge.</li>
-  
-  <li><a href="https://www.amazon.com/Engineering-Apache-Spark-Delta-Cookbook/dp/1837633355/" target="_blank">Engineering with Apache Spark & Delta Cookbook</a> – Hands-on guide to engineering pipelines using Apache Spark and Delta Lake.</li>
-  
-  <li><a href="https://www.amazon.com/Databricks-Certified-Associate-Developer-Apache-ebook/dp/B0C5MR5ZMV/" target="_blank">Databricks Certified Associate Developer</a> – Study guide and practice for the Databricks developer certification exam.</li>
-  
-  <li><a href="https://www.amazon.com/Databricks-Data-Intelligence-Platform-Revolution/dp/B0D3KS8P2C/" target="_blank">Databricks Data Intelligence Platform Revolution</a> – Overview of Databricks platform capabilities and data intelligence strategies.</li>
-  
-  <li><a href="https://www.amazon.com/DataBricks-Unofficial-Beginners-Databricks-hands-ebook/dp/B0FBHHV8VW/" target="_blank">DataBricks Unofficial Beginners Guide</a> – Practical, hands-on guide for beginners learning Databricks.</li>
-  
-  <li><a href="https://www.amazon.com/Runbook-passing-Databricks-Certified-Associate-ebook/dp/B0DZHTC2D7" target="_blank">Runbook for Passing Databricks Certified Associate</a> – Step-by-step tips and strategies for passing the certification exam.</li>
-</ul>
+                <div class="tech-card">
+                    <a href="https://docs.databricks.com/aws/en/dev-tools/cli/reference/fs-commands" target="_blank">Linux "magic commands"</a>
+                    <span class="databricks-badge">CLI Tools</span>
+                    <p>Shorthand in notebooks (e.g., %fs, %sh) to interact with files and shell.</p>
+                </div>
+            </div>
+        </div>
 
+        <!-- Books Section -->
+        <div class="section fade-in">
+            <div class="books-section">
+                <h2 class="section-title">Essential Reading Materials</h2>
+                <p>Out of all the Databricks books I've sampled on Kindle, the <strong>Databricks Certified Engineer Associate</strong> (with the bird cover) and <strong>Databricks Lakehouse Platform</strong> (with the beaver cover) have been the most comprehensive and in-depth.</p>
 
+                <div class="books-grid">
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Certified-Engineer-Associate-Depth/dp/1098166833" target="_blank">Databricks Certified Engineer Associate In-Depth</a>
+                        <div class="book-description">Comprehensive guide for preparing the Databricks Certified Associate exam.</div>
+                    </div>
 
-	
-	<div class="gallery">
-  <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="">
-  <img src="databricks_engineering_pictures/1.jpeg" alt="">
-  <img src="databricks_engineering_pictures/2.jpeg" alt="">
-  <img src="databricks_engineering_pictures/3.jpeg" alt="">
-  <img src="databricks_engineering_pictures/4.jpeg" alt="">
-  <img src="databricks_engineering_pictures/5.jpeg" alt="">
-  <img src="databricks_engineering_pictures/6.jpeg" alt="">
-  <img src="databricks_engineering_pictures/7.jpeg" alt="">
-  <img src="databricks_engineering_pictures/8.jpeg" alt="">
-  <img src="databricks_engineering_pictures/9.jpeg" alt="">
-  <img src="databricks_engineering_pictures/10.jpeg" alt="">
-  <img src="databricks_engineering_pictures/11.jpeg" alt="">
-  <img src="databricks_engineering_pictures/12.jpeg" alt="">
-  <img src="databricks_engineering_pictures/13.jpeg" alt="">
-  <img src="databricks_engineering_pictures/14.jpeg" alt="">
-  <img src="databricks_engineering_pictures/15.jpeg" alt="">
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Lakehouse-Platform-Cookbook-building/dp/9355519567" target="_blank">Databricks Lakehouse Platform Cookbook</a>
+                        <div class="book-description">Practical recipes for building data pipelines and analytics on Databricks Lakehouse.</div>
+                    </div>
 
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Not-Dummies-Analytics-Knowledge/dp/B0DZD41XCP/" target="_blank">Databricks for Not Dummies</a>
+                        <div class="book-description">Beginner-friendly introduction to Databricks analytics and platform knowledge.</div>
+                    </div>
 
-</div>
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Engineering-Apache-Spark-Delta-Cookbook/dp/1837633355/" target="_blank">Engineering with Apache Spark & Delta Cookbook</a>
+                        <div class="book-description">Hands-on guide to engineering pipelines using Apache Spark and Delta Lake.</div>
+                    </div>
 
-<!--
-<img src="data" alt="Data Engineering Books Kindle Samples">
-  <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="">
-  <img src="databricks_engineering_pictures/1_databricks_ certified_data_engineer_associate_ study_guide_managing_git_branches.jpeg.jpeg" alt="">
-  <img src="databricks_engineering_pictures/2_databricks_ certified_data_engineer_associate_ study_guide_databricks_utilities.jpeg.jpeg" alt="">
-  <img src="databricks_engineering_pictures/3.jpeg" alt="">
-  <img src="databricks_engineering_pictures/4.jpeg" alt="">
-  <img src="databricks_engineering_pictures/5.jpeg" alt="">
-  <img src="databricks_engineering_pictures/6.jpeg" alt="">
-  <img src="databricks_engineering_pictures/7.jpeg" alt="">
-  <img src="databricks_engineering_pictures/8.jpeg" alt="">
-  <img src="databricks_engineering_pictures/9.jpeg" alt="">
-  <img src="databricks_engineering_pictures/10.jpeg" alt="">
-  <img src="databricks_engineering_pictures/11.jpeg" alt="">
-  <img src="databricks_engineering_pictures/12.jpeg" alt="">
-  <img src="databricks_engineering_pictures/13.jpeg" alt="">
-  <img src="databricks_engineering_pictures/14.jpeg" alt="">
-  <img src="databricks_engineering_pictures/15.jpeg" alt="">
-  --!>
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Certified-Associate-Developer-Apache-ebook/dp/B0C5MR5ZMV/" target="_blank">Databricks Certified Associate Developer</a>
+                        <div class="book-description">Study guide and practice for the Databricks developer certification exam.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Databricks-Data-Intelligence-Platform-Revolution/dp/B0D3KS8P2C/" target="_blank">Databricks Data Intelligence Platform Revolution</a>
+                        <div class="book-description">Overview of Databricks platform capabilities and data intelligence strategies.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/DataBricks-Unofficial-Beginners-Databricks-hands-ebook/dp/B0FBHHV8VW/" target="_blank">DataBricks Unofficial Beginners Guide</a>
+                        <div class="book-description">Practical, hands-on guide for beginners learning Databricks.</div>
+                    </div>
+
+                    <div class="book-card">
+                        <a href="https://www.amazon.com/Runbook-passing-Databricks-Certified-Associate-ebook/dp/B0DZHTC2D7" target="_blank">Runbook for Passing Databricks Certified Associate</a>
+                        <div class="book-description">Step-by-step tips and strategies for passing the certification exam.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Visual Learning Resources</h2>
+            <p style="text-align: center; margin-bottom: 40px; font-size: 1.1rem; color: var(--text-light);">
+                I've captured the most impactful sections from my Kindle reading sessions. While GitHub compression affects image quality, 
+                I'm continuously improving the presentation. Meanwhile, explore these visual insights to enhance your learning journey.
+            </p>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/0_databricks_kindle_books.jpeg.jpeg" alt="Databricks Kindle Books Collection">
+                    <div class="gallery-overlay">Book Collection</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/1.jpeg" alt="Databricks Concept 1">
+                    <div class="gallery-overlay">Core Concepts</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/2.jpeg" alt="Databricks Concept 2">
+                    <div class="gallery-overlay">Architecture Patterns</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/3.jpeg" alt="Databricks Concept 3">
+                    <div class="gallery-overlay">Data Engineering</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/4.jpeg" alt="Databricks Concept 4">
+                    <div class="gallery-overlay">Best Practices</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/5.jpeg" alt="Databricks Concept 5">
+                    <div class="gallery-overlay">Implementation</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/6.jpeg" alt="Databricks Concept 6">
+                    <div class="gallery-overlay">Advanced Topics</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/7.jpeg" alt="Databricks Concept 7">
+                    <div class="gallery-overlay">Performance Tuning</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/8.jpeg" alt="Databricks Concept 8">
+                    <div class="gallery-overlay">Data Governance</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/9.jpeg" alt="Databricks Concept 9">
+                    <div class="gallery-overlay">ML Integration</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/10.jpeg" alt="Databricks Concept 10">
+                    <div class="gallery-overlay">Scaling Strategies</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/11.jpeg" alt="Databricks Concept 11">
+                    <div class="gallery-overlay">Security Features</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/12.jpeg" alt="Databricks Concept 12">
+                    <div class="gallery-overlay">Analytics Workflows</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/13.jpeg" alt="Databricks Concept 13">
+                    <div class="gallery-overlay">Data Pipelines</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/14.jpeg" alt="Databricks Concept 14">
+                    <div class="gallery-overlay">Optimization Tips</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="databricks_engineering_pictures/15.jpeg" alt="Databricks Concept 15">
+                    <div class="gallery-overlay">Advanced Features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Scroll Progress Indicator
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        }
+
+        // Intersection Observer for fade-in animations
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-in, .section').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Enhanced hover effects for gallery items
+        function setupGalleryEffects() {
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.08) translateY(-10px)';
+                    this.style.zIndex = '10';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                    this.style.zIndex = '1';
+                });
+            });
+        }
+
+        // Tech card staggered animations
+        function setupTechCardAnimations() {
+            const techCards = document.querySelectorAll('.tech-card');
+            techCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('tech-card-animation');
+            });
+        }
+
+        // Book card hover effects
+        function setupBookCardEffects() {
+            document.querySelectorAll('.book-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Parallax effect for hero section
+        function setupParallax() {
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+        }
+
+        // Video card loading effects
+        function setupVideoEffects() {
+            document.querySelectorAll('.video-card').forEach(card => {
+                const iframe = card.querySelector('iframe');
+                if (iframe) {
+                    iframe.addEventListener('load', function() {
+                        card.classList.add('loaded');
+                    });
+                }
+            });
+        }
+
+        // Dynamic badge animations
+        function setupBadgeAnimations() {
+            document.querySelectorAll('.databricks-badge').forEach((badge, index) => {
+                badge.style.animationDelay = `${index * 0.05}s`;
+                badge.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(2deg)';
+                });
+                badge.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        }
+
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            setupScrollAnimations();
+            setupGalleryEffects();
+            setupTechCardAnimations();
+            setupBookCardEffects();
+            setupSmoothScrolling();
+            setupParallax();
+            setupVideoEffects();
+            setupBadgeAnimations();
+            setupImageModal();
+            
+            // Add scroll event listener for progress bar
+            window.addEventListener('scroll', updateScrollProgress);
+            
+            // Add loading class to body for initial animations
+            document.body.classList.add('loaded');
+        });
+
+        // Fullscreen Image Modal Functionality
+        function setupImageModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalClose = document.getElementById('modalClose');
+            const modalPrev = document.getElementById('modalPrev');
+            const modalNext = document.getElementById('modalNext');
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            
+            let currentImageIndex = 0;
+            let imageArray = Array.from(galleryImages);
+            
+            // Open modal when gallery image is clicked
+            galleryImages.forEach((img, index) => {
+                img.parentElement.addEventListener('click', function() {
+                    currentImageIndex = index;
+                    modalImage.src = img.src;
+                    modalImage.alt = img.alt;
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+            });
+            
+            // Close modal functionality
+            function closeModal() {
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+            
+            modalClose.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Navigation functionality
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + imageArray.length) % imageArray.length;
+                modalImage.src = imageArray[currentImageIndex].src;
+                modalImage.alt = imageArray[currentImageIndex].alt;
+            }
+            
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % imageArray.length;
+                modalImage.src = imageArray[currentImageIndex].src;
+                modalImage.alt = imageArray[currentImageIndex].alt;
+            }
+            
+            modalPrev.addEventListener('click', showPrevImage);
+            modalNext.addEventListener('click', showNextImage);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (modal.classList.contains('show')) {
+                    switch(e.key) {
+                        case 'Escape':
+                            closeModal();
+                            break;
+                        case 'ArrowLeft':
+                            showPrevImage();
+                            break;
+                        case 'ArrowRight':
+                            showNextImage();
+                            break;
+                    }
+                }
+            });
+            
+            // Touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            modal.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            modal.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        showNextImage(); // Swipe left, show next
+                    } else {
+                        showPrevImage(); // Swipe right, show prev
+                    }
+                }
+            }
+        }
+
+        // Add CSS for tech card animations
+        const style = document.createElement('style');
+        style.textContent = `
+            .tech-card-animation {
+                animation: slideInFromBottom 0.6s ease-out forwards;
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            
+            @keyframes slideInFromBottom {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .loaded .hero-content h1 {
+                animation: heroTextSlide 1.2s ease-out;
+            }
+            
+            @keyframes heroTextSlide {
+                0% {
+                    opacity: 0;
+                    transform: translateY(50px) scale(0.8);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+            
+            .video-card.loaded::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                animation: shimmer 2s ease-in-out;
+            }
+            
+            @keyframes shimmer {
+                0% { left: -100%; }
+                100% { left: 100%; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
-
