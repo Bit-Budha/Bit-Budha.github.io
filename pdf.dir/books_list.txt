@@ -1,0 +1,7 @@
+0_understanding_etl.pdf
+1_lakehouse_for_dummies.pdf
+2_bi_meets_ai.pdf
+3_governance_architecture_patterns_for_data_architects.pdf
+4_big_book_of_data_engineering.pdf
+books_list.txt
+desktop.ini
