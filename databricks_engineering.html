@@ -516,6 +516,38 @@
   margin: 0 auto 10px;
 }
 
+.accreditation-img {
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.accreditation-img:hover {
+  opacity: 0.8;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
 </style>
 </head>
 <body>
@@ -563,30 +595,24 @@
             </div>
         </div>
 
-	<!-- Accreditation -->
+<!-- Accreditation -->
 <h2 class="section-title">Accreditations</h2>
 <ul style="display: flex; list-style: none; padding: 0; gap: 20px; flex-wrap: wrap;">
-
   <li style="text-align: center; max-width: 200px;">
-      <img src="https://i.imgur.com/FCjoCf5.png" alt="Accreditation 1" width="200">
-    </a>
+    <img src="https://i.imgur.com/FCjoCf5.png" alt="Accreditation 1" width="200" class="accreditation-img" onclick="openLightbox(this.src)">
   </li>
-
   <li style="text-align: center; max-width: 200px;">
-      <img src="https://i.imgur.com/g1oGrHx.png" alt="Accreditation 2" width="200">
-    </a>
+    <img src="https://i.imgur.com/g1oGrHx.png" alt="Accreditation 2" width="200" class="accreditation-img" onclick="openLightbox(this.src)">
   </li>
-
   <li style="text-align: center; max-width: 200px;">
-      <img src="https://i.imgur.com/ASOJCk1.png" alt="Accreditation 3" width="200">
-    </a>
+    <img src="https://i.imgur.com/ASOJCk1.png" alt="Accreditation 3" width="200" class="accreditation-img" onclick="openLightbox(this.src)">
   </li>
-
   <li style="text-align: center; max-width: 200px;">
-      <img src="https://i.imgur.com/OgcsgGZ.png" alt="Accreditation 4" width="200">
-    </a>
+    <img src="https://i.imgur.com/OgcsgGZ.png" alt="Accreditation 4" width="200" class="accreditation-img" onclick="openLightbox(this.src)">
   </li>
 </ul>
+
+
         <!-- Introduction Section -->
         <div class="section fade-in">
             <div class="intro-text">
@@ -1206,6 +1232,32 @@
             }
         `;
         document.head.appendChild(style);
+
+function openLightbox(imgSrc) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = imgSrc;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('lightbox').classList.contains('active')) {
+    closeLightbox();
+  }
+});
     </script>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Expanded view">
+</div>
+
 </body>
 </html>
