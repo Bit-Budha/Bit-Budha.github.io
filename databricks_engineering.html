@@ -1348,5 +1348,55 @@ document.addEventListener('keydown', function(e) {
   <img id="lightbox-img" src="" alt="Expanded view">
 </div>
 
+<p>CMS Marketplace API</p>
+
+
+
+<script>
+const API_BASE = 'https://marketplace.api.healthcare.gov/api/v1';
+const API_KEY = '7+{B`53Xv=9i'; // ⚠️ visible in browser
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+
+async function fetchWithCache(url) {
+  const now = Date.now();
+  const cached = localStorage.getItem(url);
+  const cachedTime = localStorage.getItem(url + '_time');
+
+  if (cached && cachedTime && (now - cachedTime < CACHE_TTL)) {
+    console.log('Serving from cache:', url);
+    return JSON.parse(cached);
+  }
+
+  let attempts = 0;
+  while (attempts < 3) {
+    const resp = await fetch(url);
+    if (resp.status === 429) {
+      // Rate limit hit, wait and retry
+      const wait = (attempts + 1) * 2000; // 2s, 4s, 6s
+      console.warn(`Rate limit hit. Retrying in ${wait / 1000}s...`);
+      await new Promise(r => setTimeout(r, wait));
+      attempts++;
+      continue;
+    }
+    const data = await resp.json();
+    localStorage.setItem(url, JSON.stringify(data));
+    localStorage.setItem(url + '_time', now);
+    return data;
+  }
+  throw new Error('Failed after retries');
+}
+
+// Example: Fetch counties by ZIP
+async function getCounties(zip) {
+  const url = `${API_BASE}/counties/by/zip/${zip}?apikey=${API_KEY}`;
+  const data = await fetchWithCache(url);
+  console.log(data);
+}
+
+// Example usage:
+getCounties('71601');
+</script>
+
+
 </body>
 </html>
