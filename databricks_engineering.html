@@ -1352,49 +1352,84 @@ document.addEventListener('keydown', function(e) {
 
 
 
+<!-- UI block -->
+<div style="margin:1rem 0;">
+  <label>ZIP:
+    <input id="zip" value="71601" />
+  </label>
+  <button id="go">Lookup Counties</button>
+  <span id="status" style="margin-left:.5rem;color:#555;"></span>
+</div>
+
+<pre id="out" style="background:#f6f8fa;padding:1rem;min-height:120px;"></pre>
+
 <script>
-const API_BASE = 'https://marketplace.api.healthcare.gov/api/v1';
-const API_KEY = '7+{B`53Xv=9i'; // ⚠️ visible in browser
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+  const API_BASE = 'https://marketplace.api.healthcare.gov/api/v1';
+  const API_KEY = '7+{B`53Xv=9i'; // <-- set your key
+  const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
 
-async function fetchWithCache(url) {
-  const now = Date.now();
-  const cached = localStorage.getItem(url);
-  const cachedTime = localStorage.getItem(url + '_time');
+  async function fetchWithCache(url) {
+    const now = Date.now();
+    const cached = localStorage.getItem(url);
+    const cachedTime = Number(localStorage.getItem(url + '_time'));
 
-  if (cached && cachedTime && (now - cachedTime < CACHE_TTL)) {
-    console.log('Serving from cache:', url);
-    return JSON.parse(cached);
-  }
-
-  let attempts = 0;
-  while (attempts < 3) {
-    const resp = await fetch(url);
-    if (resp.status === 429) {
-      // Rate limit hit, wait and retry
-      const wait = (attempts + 1) * 2000; // 2s, 4s, 6s
-      console.warn(`Rate limit hit. Retrying in ${wait / 1000}s...`);
-      await new Promise(r => setTimeout(r, wait));
-      attempts++;
-      continue;
+    if (cached && cachedTime && (now - cachedTime < CACHE_TTL)) {
+      return JSON.parse(cached);
     }
-    const data = await resp.json();
-    localStorage.setItem(url, JSON.stringify(data));
-    localStorage.setItem(url + '_time', now);
-    return data;
+
+    let attempts = 0;
+    while (attempts < 3) {
+      const resp = await fetch(url, { headers: { 'accept': 'application/json' } });
+      if (resp.status === 429) {
+        const wait = (attempts + 1) * 2000; // 2s, 4s, 6s
+        await new Promise(r => setTimeout(r, wait));
+        attempts++;
+        continue;
+      }
+      if (!resp.ok) {
+        // Bubble up error text (helps debugging)
+        const text = await resp.text();
+        throw new Error(`HTTP ${resp.status}: ${text}`);
+      }
+      const data = await resp.json();
+      localStorage.setItem(url, JSON.stringify(data));
+      localStorage.setItem(url + '_time', String(now));
+      return data;
+    }
+    throw new Error('Rate limit: retried 3x and still failing.');
   }
-  throw new Error('Failed after retries');
-}
 
-// Example: Fetch counties by ZIP
-async function getCounties(zip) {
-  const url = `${API_BASE}/counties/by/zip/${zip}?apikey=${API_KEY}`;
-  const data = await fetchWithCache(url);
-  console.log(data);
-}
+  // Wire up button
+  const btn = document.getElementById('go');
+  const out = document.getElementById('out');
+  const status = document.getElementById('status');
 
-// Example usage:
-getCounties('71601');
+  btn.addEventListener('click', async () => {
+    const zip = document.getElementById('zip').value.trim();
+    const url = `${API_BASE}/counties/by/zip/${encodeURIComponent(zip)}?apikey=${API_KEY}`;
+
+    status.textContent = 'Loading...';
+    out.textContent = '';
+
+    try {
+      const data = await fetchWithCache(url);
+      status.textContent = 'Done';
+      out.textContent = JSON.stringify(data, null, 2);
+
+      // Optional: auto-fill the first county FIPS somewhere else on your page
+      const firstFips = data?.counties?.[0]?.countyfips;
+      if (firstFips) {
+        console.log('First county FIPS:', firstFips);
+      }
+    } catch (err) {
+      status.textContent = 'Error';
+      out.textContent = err.message;
+      console.error(err);
+    }
+  });
+
+  // Auto-run once on page load (optional)
+  // btn.click();
 </script>
 
 
